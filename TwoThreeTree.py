@@ -104,6 +104,9 @@ class TwoThreeTree():
         else:
             node = Node(key)
             self.root.insertElement(node)
+            #this is in case splitting the node creates a new root. just ensures that the root always has the correct assignment
+            while self.root.parent:
+				self.root = self.root.parent
 
     def search(self, key):
         return self.root.searchElement(key)

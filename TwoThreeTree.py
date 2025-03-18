@@ -19,7 +19,7 @@ class Node:
         #base case: couldn't find the key and reached the end of the tree
         elif self.isLeaf():
             print(f"Key: {key} was not found")
-            return found
+            return found #false
         
         elif key < self.keys[0]:#key is less than everything in the node, so recursively search left child
             return self.children[0].searchElement(key)
@@ -33,10 +33,13 @@ class Node:
         inserted = False
 
         if self.isLeaf():
-            self.addNode(node)
-            inserted = True
-            print(f"{node.keys[0]} was inserted!")
-            return inserted
+            if node.keys[0] in self.keys:
+                return inserted #false
+            else:
+                self.addNode(node)
+                inserted = True
+                print(f"{node.keys[0]} was inserted!")
+                return inserted
 
         elif node.keys[0] < self.keys[0]:  # key is less than everything in the node, so recursively search left child
             return self.children[0].insertElement(node)
@@ -93,7 +96,7 @@ class Node:
             leftChild.parent = self
             rightChild.parent = self
 
-class TwoThreeTree():
+class TwoThreeTree(AbstractSearchInterface):
     def __init__(self):
         self.root = None
 
@@ -101,12 +104,17 @@ class TwoThreeTree():
         if self.root == None:
             self.root = Node(key)
             print(f"{key} was inserted as a root!")
+            return True
         else:
             node = Node(key)
-            self.root.insertElement(node)
+            inserted = self.root.insertElement(node)
+
             #this is in case splitting the node creates a new root. just ensures that the root always has the correct assignment
             while self.root.parent:
                 self.root = self.root.parent
+
+            return inserted
+        
 
     def search(self, key):
         return self.root.searchElement(key)

@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-from anaconda_project.internal.conda_api import result
-
 
 class AbstractSearchInterface(ABC):
     '''

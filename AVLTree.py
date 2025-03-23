@@ -35,7 +35,7 @@ class AbstractSearchInterface(ABC):
         pass
 
 
-class AVL:
+class AVLNode:
     def __init__(self, value):
         self.value = value
         self.left = None
@@ -151,7 +151,7 @@ class AVLTree(AbstractSearchInterface):
         if self.searchElement(element):
             return False
         if self.root is None:
-            self.root = AVL(element)
+            self.root = AVLNode(element)
             print(f"{element} was inserted as a root")
         else:
             self.root = self.root.insert(self.root, element)
